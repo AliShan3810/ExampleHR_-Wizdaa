@@ -36,3 +36,7 @@ yarn-error.log*
 next-env.d.ts
 
 *storybook.log
+
+# storybook (regenerate with: npm run build-storybook)
+/storybook-static
+config.bat
