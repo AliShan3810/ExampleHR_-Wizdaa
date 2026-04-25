@@ -13,22 +13,32 @@ export function ErrorPanel({
 }: ErrorPanelProps) {
   return (
     <div
-      className="rounded-xl border border-red-200 bg-red-50 p-5 text-left shadow-sm"
+      className="rounded-2xl border border-red-200/90 bg-gradient-to-b from-red-50/95 to-orange-50/30 p-6 text-left shadow-card"
       role="alert"
     >
-      <p className="text-sm font-semibold text-red-900">{title}</p>
-      {message ? (
-        <p className="mt-1 text-sm text-red-800/90">{message}</p>
-      ) : null}
-      {onRetry ? (
-        <button
-          type="button"
-          onClick={onRetry}
-          className="mt-3 inline-flex items-center rounded-md bg-red-900 px-3 py-1.5 text-sm font-medium text-white hover:bg-red-950"
+      <div className="flex gap-3">
+        <span
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-red-100 text-lg font-bold text-red-700"
+          aria-hidden
         >
-          {retryLabel}
-        </button>
-      ) : null}
+          !
+        </span>
+        <div className="min-w-0 flex-1">
+          <p className="text-sm font-semibold text-red-950">{title}</p>
+          {message ? (
+            <p className="mt-1.5 text-sm leading-relaxed text-red-900/85">{message}</p>
+          ) : null}
+          {onRetry ? (
+            <button
+              type="button"
+              onClick={onRetry}
+              className="mt-4 inline-flex items-center rounded-xl bg-red-900 px-4 py-2 text-sm font-semibold text-white shadow-md transition hover:bg-red-800"
+            >
+              {retryLabel}
+            </button>
+          ) : null}
+        </div>
+      </div>
     </div>
   );
 }

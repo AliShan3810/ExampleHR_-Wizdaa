@@ -1,20 +1,22 @@
 function CardSkeleton() {
   return (
-    <div className="rounded-lg border border-neutral-200 bg-white p-4 shadow-sm">
-      <div className="flex flex-col gap-3 sm:flex-row sm:justify-between">
-        <div className="space-y-2">
-          <div className="h-5 w-36 animate-pulse rounded bg-neutral-200" />
-          <div className="h-4 w-52 max-w-full animate-pulse rounded bg-neutral-100" />
-          <div className="h-3 w-40 animate-pulse rounded bg-neutral-100" />
+    <div className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-card">
+      <div className="h-0.5 bg-slate-200" />
+      <div className="p-5">
+        <div className="flex flex-col gap-4 sm:flex-row sm:justify-between">
+          <div className="flex gap-3">
+            <div className="h-12 w-12 shrink-0 animate-pulse rounded-2xl bg-slate-200" />
+            <div className="space-y-2">
+              <div className="h-5 w-32 animate-pulse rounded bg-slate-200" />
+              <div className="h-3.5 w-44 max-w-full animate-pulse rounded bg-slate-100" />
+            </div>
+          </div>
+          <div className="h-24 w-full animate-pulse rounded-xl bg-emerald-50/80 sm:max-w-[13rem]" />
         </div>
-        <div className="space-y-2 sm:text-right">
-          <div className="ml-auto h-4 w-24 animate-pulse rounded bg-neutral-100" />
-          <div className="ml-auto h-7 w-28 animate-pulse rounded bg-neutral-200" />
+        <div className="mt-4 flex gap-2 border-t border-slate-100 pt-4">
+          <div className="h-10 w-24 animate-pulse rounded-xl bg-emerald-100/80" />
+          <div className="h-10 w-20 animate-pulse rounded-xl bg-slate-100" />
         </div>
-      </div>
-      <div className="mt-4 flex gap-2">
-        <div className="h-9 w-24 animate-pulse rounded-md bg-emerald-100" />
-        <div className="h-9 w-20 animate-pulse rounded-md bg-neutral-100" />
       </div>
     </div>
   );
@@ -22,7 +24,7 @@ function CardSkeleton() {
 
 export function ManagerPendingSkeleton() {
   return (
-    <ul className="space-y-3" aria-busy="true" aria-label="Loading pending requests">
+    <ul className="space-y-4" aria-busy="true" aria-label="Loading pending requests">
       <li>
         <CardSkeleton />
       </li>

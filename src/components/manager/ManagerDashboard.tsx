@@ -81,28 +81,28 @@ function PendingRequestRow({ request, onConflict409 }: PendingRequestRowProps) {
 
   if (!currentBalance) {
     return (
-      <div className="rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-4 text-sm text-neutral-600">
-        <p className="font-medium text-neutral-800">Request {request.id}</p>
+      <div className="rounded-2xl border-2 border-dashed border-slate-200/90 bg-slate-50/80 p-5 text-sm text-slate-600">
+        <p className="font-mono text-xs font-medium text-slate-500">Request {request.id}</p>
         {isError ? (
-          <div className="mt-2">
-            <p className="text-red-800">Could not load live balance from HCM.</p>
+          <div className="mt-3">
+            <p className="text-sm font-medium text-red-800">Could not load live balance from HCM.</p>
             <button
               type="button"
               onClick={() => {
                 void refetch();
               }}
-              className="mt-2 text-sm font-medium text-emerald-700 underline hover:text-emerald-800"
+              className="mt-2 text-sm font-semibold text-emerald-700 underline decoration-emerald-500/30 underline-offset-2 hover:text-emerald-800"
             >
               Retry
             </button>
           </div>
         ) : isFetching ? (
-          <p className="mt-2 flex items-center gap-2 text-neutral-700">
-            <Spinner size={16} label="Loading live balance" />
+          <p className="mt-3 flex items-center gap-2.5 text-slate-700">
+            <Spinner size={18} label="Loading live balance" />
             <span>Fetching live balance…</span>
           </p>
         ) : (
-          <p className="mt-2 text-neutral-600">No balance data yet.</p>
+          <p className="mt-3 text-slate-600">No balance data yet.</p>
         )}
       </div>
     );
@@ -154,16 +154,16 @@ export function ManagerDashboard() {
     <div className="space-y-4">
       {conflictMessage ? (
         <div
-          className="flex items-start justify-between gap-2 rounded-md border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-900"
+          className="flex items-start justify-between gap-3 rounded-2xl border border-red-200/90 bg-gradient-to-r from-red-50 to-amber-50/40 px-4 py-3 text-sm text-red-950 shadow-sm"
           role="alert"
         >
-          <span>{conflictMessage}</span>
+          <span className="pt-0.5 leading-relaxed">{conflictMessage}</span>
           <button
             type="button"
             onClick={() => {
               setConflictMessage(null);
             }}
-            className="shrink-0 text-red-800 underline"
+            className="shrink-0 rounded-lg px-2 py-1 text-xs font-semibold text-red-800 hover:bg-red-100/80"
           >
             Dismiss
           </button>
@@ -171,26 +171,26 @@ export function ManagerDashboard() {
       ) : null}
 
       {requests.length === 0 ? (
-        <div className="rounded-lg border border-neutral-200 bg-white p-8 text-center shadow-sm">
-          <p className="text-sm font-medium text-neutral-800">All caught up</p>
-          <p className="mt-1 text-sm text-neutral-500">
+        <div className="rounded-2xl border border-slate-200/90 bg-gradient-to-b from-white to-slate-50/50 px-8 py-12 text-center shadow-card">
+          <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-emerald-100/80 text-2xl text-emerald-700">
+            &#10003;
+          </div>
+          <p className="mt-4 text-base font-semibold text-slate-900">All caught up</p>
+          <p className="mt-1.5 text-sm text-slate-500">
             There are no requests waiting for your approval.
           </p>
         </div>
       ) : (
-        <ul className="space-y-3">
+        <ul className="space-y-4">
           {isFetching && !isLoading ? (
-            <li className="flex items-center gap-2 text-xs text-neutral-500">
+            <li className="flex items-center gap-2 text-xs font-medium text-slate-500">
               <Spinner size={14} label="Refreshing queue" />
               <span>Refreshing queue…</span>
             </li>
           ) : null}
           {requests.map((r) => (
             <li key={r.id}>
-              <PendingRequestRow
-                request={r}
-                onConflict409={onConflict409}
-              />
+              <PendingRequestRow request={r} onConflict409={onConflict409} />
             </li>
           ))}
         </ul>

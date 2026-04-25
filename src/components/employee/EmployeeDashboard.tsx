@@ -178,10 +178,13 @@ export function EmployeeDashboard({
     <div className="relative w-full max-w-md space-y-4">
       {updateToast ? (
         <div
-          className="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-lg bg-neutral-900 px-4 py-2 text-sm text-white shadow-lg"
+          className="pointer-events-none fixed bottom-8 left-1/2 z-50 flex -translate-x-1/2 items-center gap-2 rounded-full border border-white/10 bg-slate-900/95 px-5 py-2.5 text-sm font-medium text-white shadow-float backdrop-blur-sm"
           role="status"
         >
-          Balance updated
+          <span className="flex h-5 w-5 items-center justify-center rounded-full bg-emerald-500 text-xs font-bold text-white">
+            &#10003;
+          </span>
+          Balance updated from HCM
         </div>
       ) : null}
 

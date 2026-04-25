@@ -20,9 +20,9 @@ export function LoadingBlock({
     >
       <Spinner size={28} label={title} />
       <div className="space-y-1">
-        <p className="text-sm font-medium text-neutral-800">{title}</p>
+        <p className="text-sm font-semibold text-slate-900">{title}</p>
         {description ? (
-          <p className="max-w-sm text-xs text-neutral-500">{description}</p>
+          <p className="max-w-sm text-xs leading-relaxed text-slate-500">{description}</p>
         ) : null}
       </div>
     </div>
@@ -30,7 +30,7 @@ export function LoadingBlock({
 
   if (fullPage) {
     return (
-      <div className="flex min-h-[50vh] w-full items-center justify-center p-8">
+      <div className="bg-app-gradient flex min-h-[50vh] w-full items-center justify-center p-8">
         {inner}
       </div>
     );
