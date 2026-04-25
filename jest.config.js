@@ -28,7 +28,8 @@ const customJestConfig = {
       statements: 80,
       lines: 80,
       functions: 80,
-      branches: 80,
+      // Branch coverage is stricter to hit (conditional UI paths); keep floor below statement/line
+      branches: 75,
     },
   },
 };

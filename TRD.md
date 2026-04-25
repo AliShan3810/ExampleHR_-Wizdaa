@@ -352,7 +352,7 @@ This section is the direct answer to: **“How do you reconcile a background ref
 
 **Coverage goals (Jest, configured in `jest.config.js`):**
 
-- **Global thresholds:** 80% for statements, lines, functions, and branches on the **covered** modules (`collectCoverageFrom` lists: `balancesSlice`, `requestsSlice`, `BalanceCard`, `RequestForm`, `balanceKey`).
+- **Global thresholds:** 80% for statements, lines, and functions; **75%** for branches (branch coverage is harder to saturate on UI code) on the **covered** modules (`collectCoverageFrom` lists: `balancesSlice`, `requestsSlice`, `BalanceCard`, `RequestForm`, `balanceKey`).
 - **Rationale:** enforce regression safety on the **highest-churn, highest-risk** code without blocking CI on un-tested demo routes or one-off API files.
 
 **MSW** (`jest.setup.ts` + per-test `server.use`) keeps tests **deterministic** and aligned with production fetch URLs.

@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Example HR — Time off
 
-## Getting Started
+Demo **time-off** UI for **Example HR**: employees see **per-location** balances and submit requests; managers review a **pending queue** with **live** HCM balance context. Human Capital Management (HCM) is the **source of truth**; this app uses optimistic updates, reconciliation on background refresh, and RTK Query cache invalidation (see **`TRD.md`** for the full design).
 
-First, run the development server:
+**Stack:** Next.js 14 (App Router), TypeScript, Tailwind CSS, Redux Toolkit, RTK Query, MSW, Storybook, Jest.
+
+## Requirements
+
+- **Node.js** 18+ (LTS recommended)
+- **npm** (or pnpm / yarn)
+
+## Setup
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <your-repo-url>
+cd examplehr-timeoff
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Copy `.env.example` to **`.env.local`** (Next loads this automatically) and adjust if needed:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Purpose |
+|----------|---------|
+| `NEXT_PUBLIC_ENABLE_MSW` | When `true`, the browser registers **MSW** so some requests can be intercepted; unhandled calls still reach the Next **Route Handlers** (`/api/hcm/*`). Omit or set `false` to use the in-memory HCM API only. |
 
-## Learn More
+Do **not** commit `.env` or `.env.local` (they are gitignored by pattern—keep secrets out of the repo).
 
-To learn more about Next.js, take a look at the following resources:
+## Scripts
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Next.js dev server — [http://localhost:3000](http://localhost:3000) |
+| `npm run build` | Production build |
+| `npm start` | Serve production build (run `build` first) |
+| `npm run lint` | ESLint |
+| `npm test` | Jest test suite |
+| `npm run test:coverage` | Jest with coverage report (see `coverage/lcov-report/index.html`) |
+| `npm run storybook` | Storybook at [http://localhost:6006](http://localhost:6006) |
+| `npm run build-storybook` | Static Storybook output (default: `storybook-static/`) |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## App routes
 
-## Deploy on Vercel
+| Path | Role |
+|------|------|
+| `/` | Employee: balance + request form (demo: `emp-1` / `loc-1`) |
+| `/manager` | Manager: pending approvals with live balance per request |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Mock HCM logic lives in **`src/lib/hcmStore.ts`** and is exposed via **`src/app/api/hcm/**` route handlers.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Documentation
+
+- **`TRD.md`** — Technical Requirements Document: challenges, architecture, optimistic vs pessimistic updates, cache invalidation and reconciliation, component ↔ state mapping, test and Storybook strategy.
+
+## Testing and coverage
+
+```bash
+npm test
+npm run test:coverage
+```
+
+Coverage thresholds apply to the modules listed in `jest.config.js` (`collectCoverageFrom`). Open **`coverage/lcov-report/index.html`** in a browser for a full report.
+
+## Storybook
+
+```bash
+npm run storybook
+```
+
+Stories live under **`src/stories/`** and use **MSW** (see `.storybook/preview.ts`) for API scenarios. For a static build to deploy (e.g. Vercel static hosting), use `npm run build-storybook` and serve the output directory.
+
+## Deploying the Next app
+
+The app is a standard Next.js project. See the [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying) (e.g. Vercel or any Node host with `next start` after `next build`).
